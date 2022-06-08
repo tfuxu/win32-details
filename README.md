@@ -5,6 +5,8 @@
 
 **Win32 Details** is an additional page in Properties dialog named `Details`, similar to that from Windows File Explorer. It allows to conveniently display a specific details about .exe files within comfort of your file browser.
 
+![win32-details v0.1](https://raw.githubusercontent.com/tfuxu/win32-details/main/data/images/win32-details-screenshot-1.png)
+
 ## How to use it
 Just right-click on any .exe file, go to Properties, and click `Details` tab.
 
@@ -45,4 +47,6 @@ sudo cp win32-details.py /usr/share/nautilus-python/extensions/win32-details.py
 nautilus -q
 ```
 
-## Screenshots
+## Changelog
+* **0.1:**
+    * Initial release of Win32 Details
