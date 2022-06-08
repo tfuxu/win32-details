@@ -1,5 +1,5 @@
 # Win32 Details
-![License](https://img.shields.io/github/license/tfuxc/win32-details)
+![License](https://img.shields.io/github/license/tfuxu/win32-details)
 
 > .exe file details for your Nautilus file browser
 
@@ -19,7 +19,7 @@ Just right-click on any .exe file, go to Properties, and click `Details` tab.
 
 **1.** Clone the repository, and cd to it:
 ```
-git clone https://github.com/tfuxc/win32-details.git
+git clone https://github.com/tfuxu/win32-details.git
 cd win32-details
 ```
 
