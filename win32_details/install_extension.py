@@ -24,17 +24,21 @@ def install_system():
     if not os.path.isdir(dest_system):
         os.makedirs(dest_system)
     shutil.copy(os.path.join(root_dir, "win32_details.py"), os.path.join(dest_system, "win32_details.py"))
+    print("\33[34m[INFO]\33[0m: A system-wide installation of Win32 Details extension is complete.")
 
 def uninstall_system():
     os.remove(os.path.join(dest_system, "win32_details.py"))
+    print("\33[34m[INFO]\33[0m: Removal of Win32 Details extension is complete.")
 
 def install_user():
     if not os.path.isdir(dest_user):
         os.makedirs(dest_user)
     shutil.copy(os.path.join(root_dir, "win32_details.py"), os.path.join(dest_user, "win32_details.py"))
+    print("\33[34m[INFO]\33[0m: A local installation of Win32 Details extension is complete.")
 
 def uninstall_user():
     os.remove(os.path.join(dest_user, "win32_details.py"))
+    print("\33[34m[INFO]\33[0m: Removal of Win32 Details extension is complete.")
 
 
 """ Argparse action classes section """
