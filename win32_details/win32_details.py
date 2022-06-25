@@ -1,10 +1,12 @@
-# win32-details extension for Nautilus, version 0.1
+# win32-details extension for Nautilus
 
 # Copyright 2022 tfuxu <tfuxu@tutanota.com>
 # SPDX-License-Identifier: GPL-3.0-or-later
 
-import exiftool
 from urllib.parse import unquote
+import hashlib
+
+import exiftool
 from gi.repository import Nautilus, Gtk, GObject
 
 
@@ -18,7 +20,8 @@ details_list = [
     ["Legal Copyright", ""],
     ["File Size", ""],
     ["Modify Date", ""],
-    ["Language", ""]
+    ["Language", ""],
+    ["MD5 Hash", ""]
 ]
 
 tags = [
@@ -35,12 +38,12 @@ tags = [
 ]
 
 
-class DetailsPropPage(GObject.GObject, Nautilus.PropertyPageProvider):
+class DetailsPropPage(Nautilus.PropertyPageProvider, GObject.GObject):
     def __init__(self):
         pass
 
     def get_property_pages(self, files):
-        # Check, if its just a one file, or couple of files
+        # Check if its just a one file, or couple of files
         if len(files) != 1:
             return
 
@@ -53,7 +56,7 @@ class DetailsPropPage(GObject.GObject, Nautilus.PropertyPageProvider):
         if file.is_directory():
             return
 
-        # Check, if file has a '.exe' extension
+        # Check if file has a '.exe' extension
         if file.get_uri()[-4:] != ".exe":
             return
 
@@ -62,10 +65,10 @@ class DetailsPropPage(GObject.GObject, Nautilus.PropertyPageProvider):
         for i, value in enumerate(details_list):
             details_list[i][1] = ""
 
-
-        # Filepath given by Nautilus is in URI form, so we need to remove its file:// prefix, and change Unicode codes to correct symbols
+        # Convert URI to normal file path
         filename = unquote(file.get_uri()[7:])
-        #print(filename)
+
+        md5sum = hashlib.md5(filename.encode("utf-8")).hexdigest()
 
 
         # The parsing machine
@@ -83,32 +86,29 @@ class DetailsPropPage(GObject.GObject, Nautilus.PropertyPageProvider):
                         details_list[i][1] = data.strip()
                     else:
                         continue
+            details_list[-1][1] = md5sum
 
 
-        #print(details_list)
-
-
-        # Set up title for page
+        # Setup title for page
         self.page_title = Gtk.Label("Details")
         self.page_title.show()
 
-        # Set up main vertical box
-        self.vbox = Gtk.VBox(homogeneous=False, spacing=10)
+        # Setup main vertical box
+        self.vbox = Gtk.VBox(homogeneous=False)
         self.vbox.show()
 
-        '''file_label = Gtk.Label(filename)
-        file_label.show()
-        self.vbox.pack_start(file_label, False, False, 0)'''
-
-        # Set up ListStore for TreeView
+        # Setup ListStore for TreeView
         self.tree_liststore = Gtk.ListStore(str, str)
         for details_ref in details_list:
             self.tree_liststore.append(list(details_ref))
 
-        # Set up details TreeView
+        # Setup details TreeView
         self.treeview = Gtk.TreeView(model=self.tree_liststore)
+        self.treeview.set_hover_selection(True)
         for i, column_title in enumerate(["Property", "Value"]):
             renderer = Gtk.CellRendererText()
+            if column_title == "Value":
+                renderer.set_property("editable", True)
             column = Gtk.TreeViewColumn(column_title, renderer, text=i)
             self.treeview.append_column(column)
         self.treeview.show()
