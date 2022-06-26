@@ -37,13 +37,13 @@ nautilus -q
 ```
 
 ### From source
+Win32 Details can be installed system-widely or just for the current user.
+
 Clone the repository, and cd to it:
 ```
 git clone https://github.com/tfuxu/win32-details.git
 cd win32-details
 ```
-
-Win32 Details can be installed system-widely or just for the current user.
 
 User install:
 ```
