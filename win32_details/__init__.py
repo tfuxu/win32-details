@@ -3,4 +3,5 @@
 # Copyright 2022 tfuxu <tfuxu@tutanota.com>
 # SPDX-License-Identifier: GPL-3.0-or-later
 
+
 VERSION = "0.4.0"

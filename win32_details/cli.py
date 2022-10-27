@@ -1,9 +1,13 @@
+#!/usr/bin/env python3
+
 # win32-details extension for Nautilus
 
 # Copyright 2022 tfuxu <tfuxu@tutanota.com>
 # SPDX-License-Identifier: GPL-3.0-or-later
 
-import os, sys
+
+import os
+import sys
 import shutil
 import argparse
 
@@ -13,31 +17,31 @@ from . import VERSION
 XDG_DATA_DIR = os.environ.get("XDG_DATA_DIR", "/usr/share")
 XDG_DATA_HOME = os.environ.get("XDG_DATA_HOME", os.path.expanduser("~/.local/share"))
 
-dest_system = os.path.join(XDG_DATA_DIR, "nautilus-python/extensions")
-dest_user = os.path.join(XDG_DATA_HOME, "nautilus-python/extensions")
+DEST_SYSTEM = os.path.join(XDG_DATA_DIR, "nautilus-python/extensions")
+DEST_USER = os.path.join(XDG_DATA_HOME, "nautilus-python/extensions")
 
-root_dir = os.path.abspath(os.path.dirname(__file__))
+ROOT_DIR = os.path.abspath(os.path.dirname(__file__))
 
 
 """ Installation functions section """
 def install_system():
-    if not os.path.isdir(dest_system):
-        os.makedirs(dest_system)
-    shutil.copy(os.path.join(root_dir, "win32_details.py"), os.path.join(dest_system, "win32_details.py"))
+    if not os.path.isdir(DEST_SYSTEM):
+        os.makedirs(DEST_SYSTEM)
+    shutil.copy(os.path.join(ROOT_DIR, "win32_details.py"), os.path.join(DEST_SYSTEM, "win32_details.py"))
     print("\33[34m[INFO]\33[0m: A system-wide installation of Win32 Details extension is complete.")
 
 def uninstall_system():
-    os.remove(os.path.join(dest_system, "win32_details.py"))
+    os.remove(os.path.join(DEST_SYSTEM, "win32_details.py"))
     print("\33[34m[INFO]\33[0m: Removal of Win32 Details extension is complete.")
 
 def install_user():
-    if not os.path.isdir(dest_user):
-        os.makedirs(dest_user)
-    shutil.copy(os.path.join(root_dir, "win32_details.py"), os.path.join(dest_user, "win32_details.py"))
+    if not os.path.isdir(DEST_USER):
+        os.makedirs(DEST_USER)
+    shutil.copy(os.path.join(ROOT_DIR, "win32_details.py"), os.path.join(DEST_USER, "win32_details.py"))
     print("\33[34m[INFO]\33[0m: A local installation of Win32 Details extension is complete.")
 
 def uninstall_user():
-    os.remove(os.path.join(dest_user, "win32_details.py"))
+    os.remove(os.path.join(DEST_USER, "win32_details.py"))
     print("\33[34m[INFO]\33[0m: Removal of Win32 Details extension is complete.")
 
 

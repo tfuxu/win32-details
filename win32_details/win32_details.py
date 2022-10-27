@@ -3,10 +3,12 @@
 # Copyright 2022 tfuxu <tfuxu@tutanota.com>
 # SPDX-License-Identifier: GPL-3.0-or-later
 
-from urllib.parse import unquote
-import hashlib
 
+import hashlib
 import exiftool
+
+from urllib.parse import unquote
+
 from gi.repository import Nautilus, Gtk, GObject
 
 
@@ -77,8 +79,6 @@ class DetailsPropPage(Nautilus.PropertyPageProvider, GObject.GObject):
             for full_data in et.get_tags([filename], tags=tags):
                 manifest = full_data
                 manifest.pop("SourceFile")
-            #print(f"Range of manifest: {range(len(manifest)-1)}")
-            #print(f"Range of tags: {range(len(tags))}")
             for meta, data in manifest.items():
                 for i, mtags in zip(range(len(tags)), tags):
                     #print(meta == mtags)

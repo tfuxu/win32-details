@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 import os
 
@@ -58,7 +58,7 @@ setup(
 
     entry_points={
         "console_scripts": [
-            "win32-details = win32_details.install_extension:cli_main"
+            "win32-details = win32_details.cli:cli_main"
         ]
     }
 )
