@@ -1,7 +1,8 @@
 # Win32 Details
+![PyPI](https://img.shields.io/pypi/v/win32-details)
 ![License](https://img.shields.io/github/license/tfuxu/win32-details)
 
-**Win32 Details** is an additional page in Properties dialog named `Details`, similar to that from Windows File Explorer. It allows to conveniently display a specific details about .exe files within comfort of your file browser.
+**Win32 Details** is an additional page in Properties dialog named `Details`, similar to that from Windows File Explorer. It allows to conveniently display a specific details about .exe files within a comfort of your file browser.
 
 ![win32-details v0.1](https://raw.githubusercontent.com/tfuxu/win32-details/main/data/images/win32-details-screenshot-1.png)
 
@@ -9,13 +10,6 @@
 Just right-click any .exe file, go to Properties, and click `Details` tab.
 
 ## Installation
-### Requirements
-* **Python** >= 3.6,
-* Probably a recent version of **Nautilus 3.x**, or **Nautilus 4x**,
-* [nautilus-python](https://wiki.gnome.org/Projects/NautilusPython),
-* Copy of [exiftool](https://github.com/exiftool/exiftool) (required by PyExifTool),
-* [PyExifTool](https://pypi.org/project/PyExifTool/)
-
 ### From PyPI
 Win32 Details can be installed system-widely or just for the current user.
 
@@ -36,31 +30,68 @@ Close currently opened Nautilus instances to load the extension:
 nautilus -q
 ```
 
-### From source
-Win32 Details can be installed system-widely or just for the current user.
+## Building from source
+### Prerequisites
+The following packages are required to build win32-details:
 
-Clone the repository, and cd to it:
+* **Python** >= 3.6,
+* Probably a recent version of **Nautilus 3.x**, or **Nautilus <= 42.x**,
+* [nautilus-python](https://wiki.gnome.org/Projects/NautilusPython),
+* Copy of [exiftool](https://github.com/exiftool/exiftool) (required by PyExifTool),
+* [PyExifTool](https://pypi.org/project/PyExifTool/)
+* Meson and Ninja build systems (only needed for [Using Meson](#using-meson) build option)
+
+Required Python libraries:
+```
+pip install -r requirements.txt
+```
+
+### Build instructions
+Clone the repository:
 ```
 git clone https://github.com/tfuxu/win32-details.git
 cd win32-details
 ```
 
-User install:
+#### As a library:
+Local installation:
 ```
 pip3 install --user .
 win32-details --install-user
 ```
 
-System-wide install:
+System-wide installation:
 ```
 sudo pip3 install .
 sudo win32-details --install-system
 ```
 
+#### Using Meson:
+Local installation:
+```
+meson builddir --prefix="$HOME/.local"
+ninja -C builddir install
+```
+
+System-wide installation:
+```
+meson builddir --prefix=/usr
+sudo ninja -C builddir install
+```
+
+> **Warning**
+> If you get a `Directory already configured` message when running `meson builddir` command, you can append to this command `--wipe` option to clean build directory before configuration.
+
 Close currently opened Nautilus instances to load the extension:
 ```
 nautilus -q
 ```
+
+## License
+<p>
+<img src="https://www.gnu.org/graphics/gplv3-with-text-136x68.png" alt="GPLv3 logo" align="right">
+This repository is licensed under the terms of the GNU GPLv3 license. You can find a copy of the license in the LICENSE file.
+</p>
 
 ## Changelog
 * **0.4:**
