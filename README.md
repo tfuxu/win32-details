@@ -87,6 +87,14 @@ Close currently opened Nautilus instances to load the extension:
 nautilus -q
 ```
 
+## Note about Nautilus versions below 43.x
+Support for older Nautilus versions has been removed in win32-details 0.5.0, because of moving to Nautilus API 4.0, which deprecates direct usage of GTK widgets in favor of a new model-based interface (which is a shitty decision IMO). In this situation I had three options:
+- Maintain both versions of extension, one for Nautilus 43 and above, and one for Nautilus <= 42,
+- Make this extension as a standalone program, and use extension to launch it,
+- Just deprecate support for older Nautilus versions.
+
+Honestly, I'm not that interested in maintaining a seperate version of extension, as majority of people are using the latest version of Nautilus now. Moving a extension to a standalone program would make everything more complicated, and I don't think that many people would want to install an app which just shows them details of EXE files (but maybe, in the [future](https://github.com/tfuxu/win32-details/issues/5)...).
+
 ## License
 <p>
 <img src="https://www.gnu.org/graphics/gplv3-with-text-136x68.png" alt="GPLv3 logo" align="right">
@@ -94,10 +102,14 @@ This repository is licensed under the terms of the GNU GPLv3 license. You can fi
 </p>
 
 ## Changelog
-* **0.4:**
+* **0.5.0:**
+    * Port extension to Nautilus API 4.0, **from this version onward, win32-details won't support Nautilus versions below 43**[ (more info)](#note-about-nautilus-versions-below-43x)
+    * Add new Meson build option
+    * Change page name to `More Properties`
+* **0.4.0:**
     * Add a `MD5 Hash` row
     * Allow user to copy values from rows (if row is selected, click left one time to select text)
     * Add setup.py for packaging to PyPI
     * Create a small CLI tool for easier installing (based on [Nautilus Terminal](https://github.com/flozz/nautilus-terminal/blob/master/nautilus_terminal/__main__.py))
-* **0.1:**
+* **0.1.0:**
     * Initial release of Win32 Details
