@@ -13,7 +13,7 @@ with open("README.md", "r", encoding="utf-8") as f:
 setup(
     name="win32-details",
     license="GPL-3.0",
-    version="0.4.0",
+    version="0.5.0",
     author="tfuxu",
     description=".exe file details for your Nautilus file browser",
     long_description=long_desc,
