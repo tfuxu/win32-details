@@ -35,7 +35,7 @@ nautilus -q
 The following packages are required to build win32-details:
 
 * **Python** >= 3.6,
-* Probably a recent version of **Nautilus 3.x**, or **Nautilus <= 42.x**,
+* A recent version of **Nautilus >= 43.x**,
 * [nautilus-python](https://wiki.gnome.org/Projects/NautilusPython),
 * Copy of [exiftool](https://github.com/exiftool/exiftool) (required by PyExifTool),
 * [PyExifTool](https://pypi.org/project/PyExifTool/)
