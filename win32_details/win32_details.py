@@ -9,7 +9,7 @@ import exiftool
 
 from urllib.parse import unquote
 
-from gi.repository import Nautilus, Gtk, GObject
+from gi.repository import GObject, Gio, Nautilus, GLib
 
 
 details_list = [
@@ -40,13 +40,17 @@ tags = [
 ]
 
 
-class DetailsPropPage(Nautilus.PropertyPageProvider, GObject.GObject):
+class MorePropsModel(Nautilus.PropertiesModelProvider, GObject.GObject):
     def __init__(self):
         pass
 
-    def get_property_pages(self, files):
+    def log_warn(self, message):
+        GLib.log_variant(None, GLib.LogLevelFlags.LEVEL_DEBUG, GLib.Variant("a{sv}", {"MESSAGE": message}))
+
+    def get_models(self, files):
         # Check if its just a one file, or couple of files
         if len(files) != 1:
+            self.log_warn(GLib.Variant("s", "FILES INVASION!!!1"))
             return
 
         # File path in its URI form
@@ -81,7 +85,6 @@ class DetailsPropPage(Nautilus.PropertyPageProvider, GObject.GObject):
                 manifest.pop("SourceFile")
             for meta, data in manifest.items():
                 for i, mtags in zip(range(len(tags)), tags):
-                    #print(meta == mtags)
                     if meta == mtags:
                         details_list[i][1] = data.strip()
                     else:
@@ -89,33 +92,16 @@ class DetailsPropPage(Nautilus.PropertyPageProvider, GObject.GObject):
             details_list[-1][1] = md5sum
 
 
-        # Setup title for page
-        self.page_title = Gtk.Label("Details")
-        self.page_title.show()
-
-        # Setup main vertical box
-        self.vbox = Gtk.VBox(homogeneous=False)
-        self.vbox.show()
-
-        # Setup ListStore for TreeView
-        self.tree_liststore = Gtk.ListStore(str, str)
+        # Setup ListStore for Nautilus.PropertiesModel content model
+        self.contentstore = Gio.ListStore.new(item_type=Nautilus.PropertiesItem)
         for details_ref in details_list:
-            self.tree_liststore.append(list(details_ref))
-
-        # Setup details TreeView
-        self.treeview = Gtk.TreeView(model=self.tree_liststore)
-        self.treeview.set_hover_selection(True)
-        for i, column_title in enumerate(["Property", "Value"]):
-            renderer = Gtk.CellRendererText()
-            if column_title == "Value":
-                renderer.set_property("editable", True)
-            column = Gtk.TreeViewColumn(column_title, renderer, text=i)
-            self.treeview.append_column(column)
-        self.treeview.show()
-        self.vbox.pack_start(self.treeview, False, False, 0)
+            list_item = Nautilus.PropertiesItem(
+                name = details_ref[0],
+                value = details_ref[1]
+            )
+            self.contentstore.append(list_item)
 
 
-        # Return to API handler as Nautilus.PropertyPage object
-        return Nautilus.PropertyPage(name="win32-details-page",
-                                     label=self.page_title, 
-                                     page=self.vbox),
+        # Return to API handler as Nautilus.PropertiesModel object
+        return Nautilus.PropertiesModel(title="More Properties",
+                                        model=self.contentstore),
