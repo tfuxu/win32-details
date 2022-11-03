@@ -44,13 +44,16 @@ class MorePropsModel(Nautilus.PropertiesModelProvider, GObject.GObject):
     def __init__(self):
         pass
 
-    def log_warn(self, message):
-        GLib.log_variant(None, GLib.LogLevelFlags.LEVEL_DEBUG, GLib.Variant("a{sv}", {"MESSAGE": message}))
+    def log_debug(self, message):
+        message = f"win32-details: {message}"
+        variant_message = GLib.Variant("s", message)
+
+        GLib.log_variant(None, GLib.LogLevelFlags.LEVEL_DEBUG, GLib.Variant("a{sv}", {"MESSAGE": variant_message}))
 
     def get_models(self, files):
         # Check if its just a one file, or couple of files
         if len(files) != 1:
-            self.log_warn(GLib.Variant("s", "FILES INVASION!!!1"))
+            self.log_debug("FILES INVASION!!!1")
             return
 
         # File path in its URI form
@@ -86,7 +89,13 @@ class MorePropsModel(Nautilus.PropertiesModelProvider, GObject.GObject):
             for meta, data in manifest.items():
                 for i, mtags in zip(range(len(tags)), tags):
                     if meta == mtags:
-                        details_list[i][1] = data.strip()
+                        if type(data) == str:
+                            details_list[i][1] = data.strip()
+                        else:
+                            try:
+                                details_list[i][1] = str(data)
+                            except TypeError as e:
+                                self.log_debug(f"Unexpected data type inside metadata. Exc: {e}")
                     else:
                         continue
             details_list[-1][1] = md5sum
