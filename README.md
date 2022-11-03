@@ -2,12 +2,12 @@
 ![PyPI](https://img.shields.io/pypi/v/win32-details)
 ![License](https://img.shields.io/github/license/tfuxu/win32-details)
 
-**Win32 Details** is an additional page in Properties dialog named `Details`, similar to that from Windows File Explorer. It allows to conveniently display a specific details about .exe files within a comfort of your file browser.
+**Win32 Details** is an additional page in Properties dialog named `More Properties`, similar to `Details` tab from Windows File Explorer. It allows to conveniently display a specific details about .exe files within a comfort of your file browser.
 
-![win32-details v0.1](https://raw.githubusercontent.com/tfuxu/win32-details/main/data/images/win32-details-screenshot-1.png)
+![win32-details v0.5.0](https://raw.githubusercontent.com/tfuxu/win32-details/main/data/images/win32-details-screenshot-v0.5.png)
 
 ## How to use it
-Just right-click any .exe file, go to Properties, and click `Details` tab.
+Just right-click any .exe file, go to Properties, and click `More Properties` button at the bottom of the page.
 
 ## Installation
 ### From PyPI
@@ -39,7 +39,7 @@ The following packages are required to build win32-details:
 * [nautilus-python](https://wiki.gnome.org/Projects/NautilusPython),
 * Copy of [exiftool](https://github.com/exiftool/exiftool) (required by PyExifTool),
 * [PyExifTool](https://pypi.org/project/PyExifTool/)
-* Meson and Ninja build systems (only needed for [Using Meson](#using-meson) build option)
+* **Meson** and **Ninja** build systems (only needed for [Using Meson](#using-meson) build option)
 
 Required Python libraries:
 ```
