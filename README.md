@@ -93,7 +93,7 @@ Support for older Nautilus versions has been removed in win32-details 0.5.0, bec
 - Make this extension as a standalone program, and use extension to launch it,
 - Just deprecate support for older Nautilus versions.
 
-Honestly, I'm not that interested in maintaining a seperate version of extension, as majority of people are using the latest version of Nautilus now. Moving a extension to a standalone program would make everything more complicated, and I don't think that many people would want to install an app which just shows them details of EXE files (but maybe, in the [future](https://github.com/tfuxu/win32-details/issues/5)...).
+Honestly, I'm not that interested in maintaining a separate version of extension, as majority of people are using the latest version of Nautilus now. Moving a extension to a standalone program would make everything more complicated, and I don't think that many people would want to install an app which just shows them details of EXE files (but maybe, in the [future](https://github.com/tfuxu/win32-details/issues/5)...).
 
 ## License
 <p>
