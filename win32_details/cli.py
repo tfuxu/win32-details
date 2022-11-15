@@ -5,7 +5,6 @@
 # Copyright 2022 tfuxu <tfuxu@tutanota.com>
 # SPDX-License-Identifier: GPL-3.0-or-later
 
-
 import os
 import sys
 import shutil

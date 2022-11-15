@@ -14,6 +14,7 @@ EXTENSIONS_DIR = join_paths(get_option('prefix'), get_option('datadir'), 'nautil
 
 dependency('glib-2.0')
 dependency('gtk4')
+dependency('gdk-pixbuf-2.0', version: '>= 2.30.0')
 dependency('pygobject-3.0', version: '>= 3.42.0')
 
 # Check if python3 is installed
